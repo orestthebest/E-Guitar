@@ -1,3 +1,55 @@
 @import 'tailwindcss';
-@plugin '@tailwindcss/forms';
-@plugin '@tailwindcss/typography';
+@import '@fontsource-variable/unbounded';
+@import '@fontsource-variable/instrument-sans';
+
+/* Design tokens: colours of a vintage guitar case (plum + plush pink) and Korina gold */
+@theme {
+	--color-case: #1d0e1b;
+	--color-velvet: #33172f;
+	--color-velvet-2: #43203d;
+	--color-plush: #e0358f;
+	--color-korina: #e8b96a;
+	--color-bone: #f3eadb;
+	--color-dust: #b49bb0;
+	--font-display: 'Unbounded Variable', system-ui, sans-serif;
+	--font-sans: 'Instrument Sans Variable', system-ui, sans-serif;
+}
+
+@layer base {
+	html,
+	body {
+		@apply h-full overflow-hidden bg-case font-sans text-[15px] leading-normal text-bone antialiased;
+		color-scheme: dark;
+	}
+	button {
+		@apply cursor-pointer;
+	}
+	:focus-visible {
+		@apply rounded-md outline-2 outline-offset-2 outline-korina;
+	}
+	input[type='range'] {
+		@apply w-full accent-plush;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			transition-duration: 0.01ms !important;
+			animation-duration: 0.01ms !important;
+		}
+	}
+}
+
+/* backgrounds behind the transparent 3D canvas (too complex for utility classes) */
+@utility bg-studio {
+	background: radial-gradient(ellipse 60% 70% at 50% 46%, #5a2b52 0%, #33172f 45%, #1d0e1b 100%);
+}
+@utility bg-stage {
+	background:
+		radial-gradient(ellipse 40% 60% at 25% 0%, rgb(255 45 149 / 0.18), transparent 70%),
+		radial-gradient(ellipse 40% 60% at 78% 0%, rgb(43 196 255 / 0.14), transparent 70%),
+		radial-gradient(ellipse at 50% 60%, #1c0a1a, #060207 80%);
+}
+@utility glass {
+	@apply border border-bone/12 bg-velvet/75 backdrop-blur-xl;
+}
